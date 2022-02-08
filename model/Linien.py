@@ -22,14 +22,15 @@ class Linien:
         for line in get_linien(self.id):
             self.linien.append(Linie(self.id, line))
 
-    def reply_markup(self, fahrplan_cmd):
+    def reply_markup(self, fahrplan_cmd, isSelected=False):
         args = [(linie.name, linie.cmd) for linie in self.linien]
         args = list(dict.fromkeys(args))
         args = reshape(args, 5)
         buttonList = [util.makeButton(linie) for linie in args]
-        buttonList1 = [('alle Buslinien', unparse('t', self.id, verkehrsmittel='bus')),
-                       ('alle Bahnlinien', unparse('t', self.id, verkehrsmittel='bahn'))]
-        buttonList.append(util.makeButton(buttonList1))
+        if not isSelected:
+            buttonList1 = [('alle Buslinien', unparse('t', self.id, verkehrsmittel='bus')),
+                           ('alle Bahnlinien', unparse('t', self.id, verkehrsmittel='bahn'))]
+            buttonList.append(util.makeButton(buttonList1))
         buttonList.append(util.makeButton([('zum Fahrplan', fahrplan_cmd)]))
         return InlineKeyboardMarkup(buttonList)
 

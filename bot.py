@@ -61,7 +61,7 @@ def button_answer(update: Update, _: CallbackContext) -> None:
         if oldCmd != fahrplan_cmd:  # nachricht hat sich verändert
             query.edit_message_text(
                 text=make_selection_text(selectedLinien),
-                reply_markup=linienObj.reply_markup(fahrplan_cmd),
+                reply_markup=linienObj.reply_markup(fahrplan_cmd, len(selectedLinien) != 0),
                 parse_mode='HTML'
             )
     elif cmd == 't':  # tafel
