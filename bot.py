@@ -14,7 +14,7 @@ from util import make_fahrplan, make_selection_text
 from parser import parse, unparse
 
 path = Path(os.path.dirname(os.path.realpath(__file__)))
-x = 10
+
 # logging config
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
