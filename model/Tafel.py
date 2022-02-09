@@ -28,6 +28,7 @@ class Tafel:
         if not linien: linien = []
         self.linien = linien.copy()
         self.richtung = richtung
+        print(self.richtung)
         self.verkehrsmittel = verkehrsmittel
         self.cmd = unparse('tafel', haltestelle, linien, richtung)
         if linien:
@@ -49,6 +50,8 @@ class Tafel:
         string = f'{self.name}'
         if self.names:
             string += f' ({", ".join(self.names)})'
+        if self.richtung:
+            string += f' {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
             string += f' ({self.verkehrsmittel})'
         string += f'\n{self.getStopsString()}'
@@ -58,6 +61,8 @@ class Tafel:
         string = f'{bold(self.name)}'
         if self.names:
             string += f' ({italic(", ".join(self.names))})'
+        if self.richtung:
+            string += f' {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
             string += f' ({italic(self.verkehrsmittel)})'
         string += f'\n{monospace(self.getStopsString())}'
@@ -75,29 +80,40 @@ class Tafel:
         buttonList2 = [('refresh', unparse('t', self.haltestelle, self.linien, self.richtung, self.verkehrsmittel)),
                        ('edit', unparse('haltestelle', self.haltestelle))]
         if self.linien and not self.verkehrsmittel:
-            buttonList2.append(self.direction_emoji_cmd())
+            self.direction_emoji_cmd(buttonList2)
         buttonList = [util.makeButton(buttonList2)]
         return InlineKeyboardMarkup(buttonList)
 
-    def direction_emoji_cmd(self):
+    def direction_emoji_cmd(self, buttonList):
         # print('haltestelle:', self.haltestelle, 'linien:', self.linien)
         cmd = unparse('t', self.haltestelle, self.linien)
         if self.richtung == 'H':
-            return '➡', f'{cmd} -r R'
+            buttonList.append(('⬅️', f'{cmd} -r R'))
+            buttonList.append(('↔️', f'{cmd}'))
         elif self.richtung == 'R':
-            return '⬅', f'{cmd}'
+            buttonList.append(('↔️', f'{cmd}'))
+            buttonList.append(('➡️', f'{cmd} -r H'))
         else:
-            return '↔️', f'{cmd} -r H'
+            buttonList.append(('⬅️', f'{cmd} -r R'))
+            buttonList.append(('➡️', f'{cmd} -r H'))
+
+    def determine_direction_emoji(self):
+        if self.richtung == 'H':
+            return '➡️'
+        elif self.richtung == 'R':
+            return '⬅️'
+        else:
+            return '↔️'
 
 
 if __name__ == '__main__':
     linien = ['U35:bgs:32U35:', '349:bgs:34349:']
     linien = ['349:bgs:34349:']
-    # tafel = Tafel('de:05911:5140',
-    #               linien=['U35:bgs:32U35:'],
-    #               richtung='R',
-    #               verkehrsmittel=None)
     tafel = Tafel('de:05911:5140',
-                  verkehrsmittel='bahn')
+                  linien=['U35:bgs:32U35:'],
+                  richtung='R',
+                  verkehrsmittel=None)
+    # tafel = Tafel('de:05911:5140',
+    #               verkehrsmittel='bahn')
     # tafel = Tafel('20005696', linien)
     print(tafel)

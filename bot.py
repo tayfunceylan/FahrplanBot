@@ -84,7 +84,7 @@ def button_answer(update: Update, _: CallbackContext) -> None:
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
-    updater = Updater(vars.token)
+    updater = Updater(vars.telegram_token)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
