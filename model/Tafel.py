@@ -51,7 +51,7 @@ class Tafel:
         if self.names:
             string += f' ({", ".join(self.names)})'
         if self.richtung:
-            string += f' {self.determine_direction_emoji()}'
+            string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
             string += f' ({self.verkehrsmittel})'
         string += f'\n{self.getStopsString()}'
@@ -62,7 +62,7 @@ class Tafel:
         if self.names:
             string += f' ({italic(", ".join(self.names))})'
         if self.richtung:
-            string += f' {self.determine_direction_emoji()}'
+            string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
             string += f' ({italic(self.verkehrsmittel)})'
         string += f'\n{monospace(self.getStopsString())}'
