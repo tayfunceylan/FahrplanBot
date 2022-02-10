@@ -42,9 +42,13 @@ def mainHandler(update: Update, _: CallbackContext) -> None:
 def button_answer(update: Update, _: CallbackContext) -> None:
     """Parses the CallbackQuery and updates the message text."""
     query = update.callback_query
+    logger.info(f'callback: {query.data}\nfrom: {query.from_user}')
     # print(query.data)
-    cmd, *rest = query.data.split()
-    args = parse(rest)
+    try:
+        cmd, *rest = query.data.split()
+        args = parse(rest)
+    except Exception as e:
+        logger.error(f'fehler bei args oder cmd, *rest = query.data.split():\nerror: {e}')
 
     if cmd == 'haltestelle':
         query.answer('Linie auswählen')
@@ -78,7 +82,6 @@ def button_answer(update: Update, _: CallbackContext) -> None:
             query.answer('Daten sind aktuell')
     else:
         query.answer()
-    logger.info(f'callback: {query.data}\nfrom: {query.from_user}')
 
 
 def main() -> None:
