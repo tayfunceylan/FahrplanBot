@@ -46,7 +46,7 @@ class Tafel:
     def __str__(self):
         string = f'{self.name}'
         if self.names:
-            string += f'\nLinien: {", ".join(self.names)}'
+            string += f'\nLinienfilter: {", ".join(self.names)}'
         if self.richtung:
             string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
@@ -57,15 +57,15 @@ class Tafel:
     def telegram_str(self):
         string = f'{bold(self.name)}'
         if self.names:
-            string += f'\nLinien: {italic(", ".join(self.names))}'
+            string += f'\n{italic("Linienfilter:")} {", ".join(self.names)}'
         if self.richtung:
-            string += f'\nRichtung: {self.determine_direction_emoji()}'
+            string += f'\n{italic("Richtung:")} {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
             string += f' ({italic(self.verkehrsmittel)})'
         string += f'\n{monospace(self.getStopsString())}'
         return string
 
-    def getStops(self, input_list: Stop) -> list:
+    def getStops(self, input_list):
         self.stops = []
         for stop in input_list:
             self.stops.append(Stop(stop))
@@ -104,7 +104,7 @@ class Tafel:
 
 
 if __name__ == '__main__':
-    linien = ['U35:bgs:32U35:', '349:bgs:34349:']
+    # linien = ['U35:bgs:32U35:', '349:bgs:34349:']
     linien = ['349:bgs:34349:']
     tafel = Tafel('de:05911:5140',
                   linien=['U35:bgs:32U35:'],

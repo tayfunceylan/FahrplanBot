@@ -35,7 +35,6 @@ def start(update: Update, _: CallbackContext) -> None:
 def mainHandler(update: Update, _: CallbackContext) -> None:
     """Echo the user message."""
     search = Search(update.message.text)
-    print(search)
     update.message.reply_text(vars.selectHaltestelleText, reply_markup=search.reply_markup())
     logger.info(f'text: {update.message.text}\nfrom: {update.message.from_user}')
 
