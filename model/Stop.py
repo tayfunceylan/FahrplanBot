@@ -10,7 +10,7 @@ class Stop:
 
     def __init__(self, stop) -> None:
         self.plannedTime = stop['departureTimePlanned']
-        if 'realtimeStatus' in stop and 'MONITORED' in stop['realtimeStatus']:
+        if 'departureTimeEstimated' in stop:
             self.estTime = stop['departureTimeEstimated']
         else:
             self.estTime = None
