@@ -57,7 +57,7 @@ class Tafel:
     def telegram_str(self):
         string = f'{bold(self.name)}'
         if self.names:
-            string += f' ({italic(", ".join(self.names))})'
+            string += f'\nLinien: {italic(", ".join(self.names))}'
         if self.richtung:
             string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
