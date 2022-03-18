@@ -64,7 +64,7 @@ def get_data(id, linien, verkehrsmittel=None):
 def search(searchString):
     url = "https://openservice-test.vrr.de/static02/XML_STOPFINDER_REQUEST"
 
-    querystring = {"language": "de", "name_sf": "bochum", "outputFormat": "rapidJSON", "type_sf": "any",
+    querystring = {"language": "de", "name_sf": searchString, "outputFormat": "rapidJSON", "type_sf": "any",
                    "vrrStopFinderMacro": "1"}
 
     req = requests.get(url, params=querystring)
