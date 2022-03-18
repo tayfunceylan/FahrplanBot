@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter('%(asctime)s: %(levelname)s: %(name)s: %(message)s')
-
+(path / 'log').mkdir(exist_ok=True)
 file_handler = logging.FileHandler(path / 'log/bot.log')
 file_handler.setFormatter(formatter)
 
@@ -35,6 +35,7 @@ def start(update: Update, _: CallbackContext) -> None:
 def mainHandler(update: Update, _: CallbackContext) -> None:
     """Echo the user message."""
     search = Search(update.message.text)
+    print(search)
     update.message.reply_text(vars.selectHaltestelleText, reply_markup=search.reply_markup())
     logger.info(f'text: {update.message.text}\nfrom: {update.message.from_user}')
 
