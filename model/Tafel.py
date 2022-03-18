@@ -4,8 +4,7 @@ import util
 from model.Stop import Stop
 from vrr.vrr_api import get_data
 
-import vars
-from util import bold, monospace, now, name_linie, italic
+from util import bold, monospace, name_linie, italic
 
 from parser import unparse
 
@@ -23,12 +22,10 @@ class Tafel:
     richtung = ''
 
     def __init__(self, haltestelle, linien=None, richtung=None, verkehrsmittel=None) -> None:
-        # print('init', haltestelle, linien, richtung, verkehrsmittel)
         self.haltestelle = haltestelle
         if not linien: linien = []
         self.linien = linien.copy()
         self.richtung = richtung
-        print(self.richtung)
         self.verkehrsmittel = verkehrsmittel
         self.cmd = unparse('tafel', haltestelle, linien, richtung)
         if linien:
@@ -37,10 +34,10 @@ class Tafel:
                 linien = [f'{linie}:{self.richtung}' for linie in linien]
         response = get_data(haltestelle, linien, verkehrsmittel)
         location = response['locations'][0]
-        if 'disassembledName' in location:
-            self.name = location['disassembledName']
-        else:
-            self.name = location['name']
+        # if 'disassembledName' in location:
+        #     self.name = location['disassembledName']
+        # else:
+        self.name = location['name']
         if 'stopEvents' in response:
             self.getStops(response['stopEvents'])
         else:
@@ -49,7 +46,7 @@ class Tafel:
     def __str__(self):
         string = f'{self.name}'
         if self.names:
-            string += f' ({", ".join(self.names)})'
+            string += f'\nLinien: {", ".join(self.names)}'
         if self.richtung:
             string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:

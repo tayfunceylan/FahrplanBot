@@ -6,8 +6,6 @@ from parser import unparse
 from util import reshape
 from vrr.vrr_api import get_linien
 
-import vars
-
 
 class Linien:
     id = ''
