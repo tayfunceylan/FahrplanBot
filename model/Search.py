@@ -25,4 +25,4 @@ class Search:
 
     def reply_markup(self):
         buttonList = [util.makeButton(((haltestelle.name, haltestelle.cmd),)) for haltestelle in self.haltestellen[:3]]
-        return InlineKeyboardMarkup(buttonList)
+        return InlineKeyboardMarkup(buttonList) if buttonList else None
