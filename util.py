@@ -1,3 +1,5 @@
+import math
+
 from telegram import InlineKeyboardButton
 
 from parser import unparse, parse
@@ -74,7 +76,7 @@ def now():
 
 def reshape(arr, width: int):
     lenght = len(arr)
-    height = (lenght / width).__ceil__()
+    height = math.ceil(lenght / width)
     return [arr[i * width:(i + 1) * width] for i in range(height)]
 
 
