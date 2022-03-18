@@ -11,9 +11,9 @@ class Haltestelle:
 
     def __init__(self, response: dict):
         self.name = response['name']
-        self.id = response['ref']['gid']
+        self.id = response['id']
         self.cmd = f'haltestelle {self.id}'
-        self.type = response['anyType']
+        self.type = response['type']
 
     def __str__(self):
         return f'{self.name} {self.type} {self.id}'

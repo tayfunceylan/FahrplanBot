@@ -50,7 +50,7 @@ class Tafel:
         if self.richtung:
             string += f'\nRichtung: {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
-            string += f' ({self.verkehrsmittel})'
+            string += f'\nVerkehrsmittelfilter: {italic(self.verkehrsmittel)}'
         string += f'\n{self.getStopsString()}'
         return string
 
@@ -61,7 +61,7 @@ class Tafel:
         if self.richtung:
             string += f'\n{italic("Richtung:")} {self.determine_direction_emoji()}'
         if self.verkehrsmittel:
-            string += f' ({italic(self.verkehrsmittel)})'
+            string += f'\n{italic("Verkehrsmittelfilter:")} {italic(self.verkehrsmittel)}'
         string += f'\n{monospace(self.getStopsString())}'
         return string
 

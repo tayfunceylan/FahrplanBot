@@ -62,15 +62,14 @@ def get_data(id, linien, verkehrsmittel=None):
 
 
 def search(searchString):
-    url = 'https://www.vrr.de/de/startseite/'
-    payload = {
-        'tx_vrrtrafficdata_quickfinder[action]': 'getSuggestionData',
-        'tx_vrrtrafficdata_quickfinder[controller]': 'QuickFinder',
-        'type': '1005',
-        'cHash': '2d051302ab562c27b2c54736bcc4c1ee'
-    }
-    form = {
-        'tx_vrrtrafficdata_quickfinder[name_sf]': searchString
-    }
-    req = requests.post(url, form, params=payload)
-    return [x for x in req.json() if x['anyType'] == 'stop'][::-1]
+    url = "https://openservice-test.vrr.de/static02/XML_STOPFINDER_REQUEST"
+
+    querystring = {"language": "de", "name_sf": "bochum", "outputFormat": "rapidJSON", "type_sf": "any",
+                   "vrrStopFinderMacro": "1"}
+
+    req = requests.get(url, params=querystring)
+    return req.json()['locations']
+
+
+if __name__ == '__main__':
+    print(search('Bochum'))
